@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import NotFound from "./components/Not Found/NotFound";
 import About from "./pages/About/About";
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="*" element={<NotFound />}></Route>
             </Routes>
+            <Footer />
         </div>
     );
 }
