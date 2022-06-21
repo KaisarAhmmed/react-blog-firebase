@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import AddPost from "./pages/AddPost/AddPost";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import NotFound from "./components/Not Found/NotFound";
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/blog/archive" element={<Archive />}></Route>
                 <Route path="/contact" element={<Contact />}></Route>
                 <Route path="/login" element={<Login />}></Route>
+                <Route path="/add-post" element={<AddPost />}></Route>
                 <Route path="*" element={<NotFound />}></Route>
             </Routes>
             <Footer />
