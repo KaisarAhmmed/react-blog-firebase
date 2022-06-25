@@ -68,7 +68,7 @@ const Home = () => {
                                     </li>
                                 </ul>
                                 <Link
-                                    to="/"
+                                    to={`blog/${doc.id}`}
                                     className="text-[#152035] duration-200 hover:text-[#F08F80]"
                                 >
                                     <h2 className="text-[30px] mb-4 leading-10">

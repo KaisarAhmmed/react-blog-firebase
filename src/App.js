@@ -9,6 +9,7 @@ import Blog from "./pages/Blog/Blog";
 import Contact from "./pages/Contact/Contact";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
+import SinglePost from "./pages/SinglePost/SinglePost";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />}></Route>
+                <Route path="/blog/:id" element={<SinglePost />}></Route>
                 <Route path="/about" element={<About />}></Route>
                 <Route path="/blog" element={<Blog />}></Route>
                 <Route path="/blog/archive" element={<Archive />}></Route>

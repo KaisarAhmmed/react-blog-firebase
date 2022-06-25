@@ -149,7 +149,7 @@ const AddPost = () => {
                                 controls={[
                                     ["bold", "italic", "underline", "link"],
                                     ["unorderedList", "h1", "h2", "h3"],
-                                    ["sup", "sub"],
+                                    ["sup", "sub", "blockquote"],
                                     ["alignLeft", "alignCenter", "alignRight"],
                                 ]}
                             />
