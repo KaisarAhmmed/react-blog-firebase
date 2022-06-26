@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import Layout from "../../components/Layout/Layout";
 import {
@@ -13,8 +13,11 @@ import { db, storage } from "../../firebase.config";
 import { useDropzone } from "react-dropzone";
 import Select from "react-select";
 import { RichTextEditor } from "@mantine/rte";
+import { useUserAuth } from "../../context/userAuthContext";
 
 const AddPost = () => {
+    const { user } = useUserAuth();
+
     const options = [
         { value: "node", label: "Node" },
         { value: "life", label: "Life" },
@@ -87,7 +90,7 @@ const AddPost = () => {
             description: details,
             category: formData.category,
             tags: tags,
-            author: "Kaisar Ahmmed",
+            authorId: user.uid,
             createdAt: formData.createdAt,
         }).then(async (result) => {
             await Promise.all(
@@ -96,7 +99,7 @@ const AddPost = () => {
                         storage,
                         `posts/${result.id}/${image.path}`
                     );
-                    console.log(imageRef);
+                    //console.log(imageRef);
                     uploadBytes(imageRef, image, "data_url").then(async () => {
                         const downloadUrl = await getDownloadURL(imageRef);
                         //console.log(downloadUrl);

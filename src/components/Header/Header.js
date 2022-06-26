@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useUserAuth } from "../../context/userAuthContext";
 
 const Header = () => {
+    const { user, logOut } = useUserAuth();
+
+    const handleLogOut = () => {
+        logOut();
+    };
+
     return (
         <div className="container mx-auto flex py-8 items-center">
             <div className="w-3/12">
@@ -53,14 +60,25 @@ const Header = () => {
                             Contact
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            className="py-2.5 px-5 rounded text-base text-black inline-block duration-200 hover:bg-[#FEEAE3]"
-                            to="/login"
-                        >
-                            Login
-                        </Link>
-                    </li>
+                    {user ? (
+                        <li>
+                            <button
+                                onClick={handleLogOut}
+                                className="py-2.5 px-5 rounded text-base text-black inline-block duration-200 hover:bg-[#FEEAE3]"
+                            >
+                                {user.name}, LogOut
+                            </button>
+                        </li>
+                    ) : (
+                        <li>
+                            <Link
+                                className="py-2.5 px-5 rounded text-base text-black inline-block duration-200 hover:bg-[#FEEAE3]"
+                                to="/login"
+                            >
+                                Login
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </div>
         </div>

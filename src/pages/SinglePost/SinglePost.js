@@ -15,12 +15,20 @@ import {
 import { FiTwitter, FiFacebook, FiLinkedin } from "react-icons/fi";
 import { ImPinterest2, ImReddit } from "react-icons/im";
 import "./Single.css";
+import useUser from "../../hooks/useUser";
 
 const SinglePost = () => {
     const { id } = useParams();
+
     const [isLoading, post] = usePost(id);
 
-    if (isLoading) return <span>Loading...</span>;
+    const { authorId } = post;
+
+    const [loading, author] = useUser(authorId);
+
+    if (isLoading || loading) return <span>Loading...</span>;
+
+    console.log(author);
 
     return (
         <Layout>
@@ -96,7 +104,7 @@ const SinglePost = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="w-10/12">
+                            <div className="w-10/12 mr-8">
                                 <div
                                     className="mb-12 text-[#505050] post_details"
                                     dangerouslySetInnerHTML={{
@@ -115,6 +123,24 @@ const SinglePost = () => {
                                         </Link>
                                     ))}
                                 </div>
+                            </div>
+                        </div>
+                        <div className="mt-24 ml-8 mr-8 flex gap-10">
+                            <img
+                                src={author.photo}
+                                alt={author.name}
+                                className="h-[155px] w-[155px] object-cover rounded"
+                            />
+                            <div>
+                                <h4 className="text-2xl text-[#212529] mb-5">
+                                    {author.name}
+                                </h4>
+                                <p className="text-[#505050] leanding-10 text-base">
+                                    Kaisar Ahmmed is a writer based in New York
+                                    City. He's interested in all things tech,
+                                    science, and photography related, and likes
+                                    to yo-yo in...
+                                </p>
                             </div>
                         </div>
                     </>
