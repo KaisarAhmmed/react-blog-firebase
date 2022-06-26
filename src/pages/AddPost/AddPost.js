@@ -1,6 +1,4 @@
 import React, { useCallback, useState } from "react";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import Layout from "../../components/Layout/Layout";
 import {
     Timestamp,
     collection,
@@ -117,11 +115,7 @@ const AddPost = () => {
     };
 
     return (
-        <Layout>
-            <div className="pt-20">
-                <Breadcrumb title={"Add New Post"} />
-            </div>
-
+        <>
             <div className="">
                 <form onSubmit={handleSubmit} className="flex gap-10">
                     <div className="w-8/12">
@@ -225,7 +219,7 @@ const AddPost = () => {
                     </div>
                 </form>
             </div>
-        </Layout>
+        </>
     );
 };
 

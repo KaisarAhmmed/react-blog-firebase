@@ -1,13 +1,5 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import {
-    addDoc,
-    collection,
-    doc,
-    getDocs,
-    query,
-    setDoc,
-    where,
-} from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { auth, db } from "../../firebase.config";
 
@@ -23,14 +15,19 @@ const Login = () => {
                 setUser(user);
 
                 const usersRef = collection(db, "users");
+                const docRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(docRef);
 
-                await setDoc(doc(usersRef, user.uid), {
-                    name: user.displayName,
-                    email: user.email,
-                    userId: user.uid,
-                    role: "subscriber",
-                    photo: user.photoURL ? user.photoURL : "",
-                });
+                if (docSnap.exists()) {
+                } else {
+                    await setDoc(doc(usersRef, user.uid), {
+                        name: user.displayName,
+                        email: user.email,
+                        userId: user.uid,
+                        role: "subscriber",
+                        photo: user.photoURL ? user.photoURL : "",
+                    });
+                }
             })
             .catch((error) => {
                 console.log(error);

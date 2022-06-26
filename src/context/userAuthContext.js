@@ -31,7 +31,9 @@ export const UserAuthContextProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-            const postRef = doc(db, "users", currentuser.uid);
+            const loginUserId = currentuser ? currentuser.uid : null;
+            if (loginUserId === null) return setUser(null);
+            const postRef = doc(db, "users", loginUserId);
             onSnapshot(postRef, (snapshot) => {
                 setUser({ ...snapshot.data(), id: snapshot.id });
             });

@@ -8,7 +8,7 @@ const Footer = () => {
     return (
         <div className="bg-gradient-to-b from-[#fff6ef] via-white to-white">
             <div className="container mx-auto">
-                <div className="py-32">
+                <div className="pt-8 pb-32">
                     <div className="w-1/2 mx-auto text-center">
                         <h3 className="mb-8 text-4xl leading-[50px]">
                             Get latest posts delivered right to your inbox

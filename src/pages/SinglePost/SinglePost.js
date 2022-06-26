@@ -16,6 +16,7 @@ import { FiTwitter, FiFacebook, FiLinkedin } from "react-icons/fi";
 import { ImPinterest2, ImReddit } from "react-icons/im";
 import "./Single.css";
 import useUser from "../../hooks/useUser";
+import Loader from "../../components/Loader/Loader";
 
 const SinglePost = () => {
     const { id } = useParams();
@@ -26,13 +27,16 @@ const SinglePost = () => {
 
     const [loading, author] = useUser(authorId);
 
-    if (isLoading || loading) return <span>Loading...</span>;
-
-    console.log(author);
+    if (isLoading || loading)
+        return (
+            <div className="py-40">
+                <Loader />
+            </div>
+        );
 
     return (
         <Layout>
-            <div className="w-11/12 mx-auto py-20">
+            <div className="w-11/12 mx-auto ">
                 {post && (
                     <>
                         <h1 className="text-[60px] mb-6 ml-8">{post.title}</h1>
