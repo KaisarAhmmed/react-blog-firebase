@@ -18,11 +18,11 @@ const Blog = () => {
     const [allPost, setAllPost] = useState([]);
     const [last, setLast] = useState();
     const [postLoading, setPostLoading] = useState(false);
-    const [isEmpty, setIsEmpty] = useState(false);
+    const [recentPage, setRecentPage] = useState(1);
 
-    const [postCount, setPostCount] = useState([]);
+    const [postCount, setPostCount] = useState(0);
     const [postIds, setPostIds] = useState([]);
-    const [currentPage, setCurrentPage] = useState("");
+    const [currentPage, setCurrentPage] = useState({});
     const [postsPerPage] = useState(2);
 
     useEffect(() => {
@@ -39,13 +39,13 @@ const Blog = () => {
             );
             const documentSnapshots = await getDocs(first);
             const getPostCount = await getDocs(postCount);
-            setPostCount(getPostCount.size);
 
             const postId = getPostCount.docs.filter(
                 (item, index) => index % postsPerPage == 0
             );
 
             setPostIds(postId);
+            setPostCount(postId.length);
             const lastVisible =
                 documentSnapshots.docs[
                     documentSnapshots.docs.length - postsPerPage
@@ -75,6 +75,8 @@ const Blog = () => {
         );
 
         setCurrentPage(lastIdPass);
+
+        setRecentPage(postIds.indexOf(lastIdPass) + 1);
 
         const documentSnapshots = await getDocs(first);
         const data = documentSnapshots.docs.map((data) => ({
@@ -127,6 +129,8 @@ const Blog = () => {
                 postIds={postIds}
                 paginateId={paginateId}
                 currentPage={currentPage}
+                postCount={postCount}
+                recentPage={recentPage}
             />
         </Layout>
     );
