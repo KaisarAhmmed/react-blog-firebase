@@ -1,20 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Calender from "../../images/calender.svg";
 import Clock from "../../images/clock.svg";
 import Category from "../../images/category.svg";
 
 const SinglePost = ({ doc }) => {
+    const navigate = useNavigate();
+
+    const navigateToBlogSingle = (id) => {
+        navigate(`/blog/${id}`);
+    };
     return (
         <article className="px-7 group">
             <div className="relative mb-[60px] before:absolute before:content-[''] before:h-full before:w-[calc(100%_+_60px)] before:bg-white/50 before:top-[30px] before:left-[-30px] before:duration-300 before:rounded group-hover:before:bg-white">
-                <Link to={`blog/${doc.id}`}>
+                <div
+                    onClick={() => navigateToBlogSingle(doc.id)}
+                    className="cursor-pointer"
+                >
                     <img
                         src={doc.imageUrl}
                         alt={doc.title}
                         className="h-[350px] w-full object-cover rounded grayscale duration-300 group-hover:grayscale-0 group-hover:-translate-y-[4px]"
                     />
-                </Link>
+                </div>
             </div>
             <div>
                 <ul className="flex text-[#505050] mb-4">
@@ -45,12 +53,12 @@ const SinglePost = ({ doc }) => {
                         {doc.category}
                     </li>
                 </ul>
-                <Link
-                    to={`blog/${doc.id}`}
-                    className="text-[#152035] duration-200 hover:text-[#F08F80]"
+                <div
+                    onClick={() => navigateToBlogSingle(doc.id)}
+                    className="text-[#152035] duration-200 cursor-pointer hover:text-[#F08F80]"
                 >
                     <h2 className="text-[30px] mb-4 leading-10">{doc.title}</h2>
-                </Link>
+                </div>
                 <p className="text-[#505050] leading-[1.8] mb-4 font-medium">
                     {doc.description.slice(0, 160).replace(/(<([^>]+)>)/gi, "")}
                     ...

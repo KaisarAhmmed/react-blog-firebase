@@ -81,14 +81,16 @@ const AddPost = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    console.log(user);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const postsRef = await addDoc(collection(db, "posts"), {
+        await addDoc(collection(db, "posts"), {
             title: formData.title,
             description: details,
             category: formData.category,
             tags: tags,
-            authorId: user.uid,
+            authorId: user.userId,
             createdAt: formData.createdAt,
         }).then(async (result) => {
             await Promise.all(
