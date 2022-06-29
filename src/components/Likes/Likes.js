@@ -4,6 +4,7 @@ import { FaHeart } from "react-icons/fa";
 import { useUserAuth } from "../../context/userAuthContext";
 import { db } from "../../firebase.config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Likes = ({ id, likes }) => {
     const { user } = useUserAuth();
@@ -20,7 +21,9 @@ const Likes = ({ id, likes }) => {
             updateDoc(likesRef, {
                 likes: arrayRemove(user?.id),
             })
-                .then(() => {})
+                .then(() => {
+                    toast.info("Removed like...");
+                })
                 .catch((e) => {
                     console.log(e);
                 });
@@ -28,7 +31,9 @@ const Likes = ({ id, likes }) => {
             updateDoc(likesRef, {
                 likes: arrayUnion(user?.id),
             })
-                .then(() => {})
+                .then(() => {
+                    toast.success("Thanks.! Your like added...");
+                })
                 .catch((e) => {
                     console.log(e);
                 });

@@ -25,6 +25,8 @@ const Login = () => {
                         email: user.email,
                         userId: user.uid,
                         role: "subscriber",
+                        bookmarks: [],
+                        bio: "",
                         photo: user.photoURL ? user.photoURL : "",
                     });
                 }

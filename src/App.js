@@ -16,6 +16,8 @@ import RequireAuth from "./pages/Login/RequiredAuth";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import UserProfile from "./pages/Dashboard/UserProfile";
 import Index from "./pages/Dashboard/Index";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     return (
@@ -64,6 +66,7 @@ function App() {
                 </Routes>
                 <Footer />
             </UserAuthContextProvider>
+            <ToastContainer />
         </div>
     );
 }

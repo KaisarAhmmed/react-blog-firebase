@@ -22,12 +22,12 @@ const Pagination = ({
         paginateId(postIds[prevBtn]);
     };
 
-    // useEffect(() => {
-    //     window.scrollTo({
-    //         behavior: "smooth",
-    //         top: "100px",
-    //     });
-    // }, [recentPage]);
+    useEffect(() => {
+        window.scrollTo({
+            behavior: "smooth",
+            top: "100px",
+        });
+    }, [recentPage]);
 
     return (
         <div className="mt-20 flex justify-center items-center">

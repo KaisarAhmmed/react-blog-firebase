@@ -2,6 +2,7 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { BsFillBookmarkFill, BsFillBookmarkCheckFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useUserAuth } from "../../context/userAuthContext";
 import { db } from "../../firebase.config";
 
@@ -19,7 +20,9 @@ const Bookmarks = ({ postId }) => {
             updateDoc(bookmarksRef, {
                 bookmarks: arrayRemove(postId),
             })
-                .then(() => {})
+                .then(() => {
+                    toast.info("Bookmark removed...");
+                })
                 .catch((e) => {
                     console.log(e);
                 });
@@ -28,7 +31,7 @@ const Bookmarks = ({ postId }) => {
                 bookmarks: arrayUnion(postId),
             })
                 .then(() => {
-                    console.log("added");
+                    toast.success("Bookmark added...");
                 })
                 .catch((e) => {
                     console.log(e);

@@ -21,12 +21,13 @@ const Index = () => {
             );
 
             const querySnapshot = await getDocs(q);
-
             setUserPost(querySnapshot.size);
-            let nn = 0;
-            querySnapshot.forEach((doc) => (nn += parseInt(doc.data().likes)));
 
-            setPostLikes(nn);
+            let totalLikes = 0;
+            querySnapshot.forEach(
+                (doc) => (totalLikes += doc.data().likes.length)
+            );
+            setPostLikes(totalLikes);
         };
 
         postCount();
@@ -44,12 +45,12 @@ const Index = () => {
             <div className="bg-[#FFFBF8] p-4 rounded border-white border relative">
                 <h3 className="text-xl font-bold">Favorite Posts</h3>
                 <p className="text-6xl mt-3 text-[#F08F80] font-extrabold">
-                    35
+                    {user.bookmarks?.length}
                 </p>
                 <MdOutlineFavoriteBorder className="absolute text-[120px] top-0 right-1 text-[#FEEAE3] opacity-60" />
             </div>
             <div className="bg-[#FFFBF8] p-4 rounded border-white border relative">
-                <h3 className="text-xl font-bold">Total Posts</h3>
+                <h3 className="text-xl font-bold">Total Get Likes</h3>
                 <p className="text-6xl mt-3 text-[#F08F80] font-extrabold">
                     {postLikes}
                 </p>

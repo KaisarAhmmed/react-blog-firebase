@@ -3,13 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import Calender from "../../images/calender.svg";
 import Clock from "../../images/clock.svg";
 import Category from "../../images/category.svg";
+import useUser from "../../hooks/useUser";
 
 const SinglePost = ({ doc }) => {
     const navigate = useNavigate();
 
+    const [loading, author] = useUser(doc.authorId);
+
     const navigateToBlogSingle = (id) => {
         navigate(`/blog/${id}`);
     };
+
+    const { userId, name, photo } = author;
+
     return (
         <article className="px-7 group">
             <div className="relative mb-[60px] before:absolute before:content-[''] before:h-full before:w-[calc(100%_+_60px)] before:bg-white/50 before:top-[30px] before:left-[-30px] before:duration-300 before:rounded group-hover:before:bg-white">
@@ -63,10 +69,18 @@ const SinglePost = ({ doc }) => {
                     {doc.description.slice(0, 160).replace(/(<([^>]+)>)/gi, "")}
                     ...
                 </p>
-                <ul className="flex">
+                <ul className="flex items-center">
                     <li className="relative font-medium text-[#505050] pr-10 before:absolute before:content-[''] before:h-[5px] before:w-[5px] before:bg-[#505050] before:rounded-full before:right-[18px] before:top-[10px]">
-                        <Link to={`author/${doc.authorId}`}>
-                            by {doc.author}
+                        <Link
+                            to={`author/${userId}`}
+                            className="flex items-center"
+                        >
+                            <img
+                                src={photo}
+                                alt={name}
+                                className="h-7 w-7 rounded object-cover mr-2"
+                            />
+                            by {name}
                         </Link>
                     </li>
                     <li>

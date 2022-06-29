@@ -23,7 +23,7 @@ const Blog = () => {
     const [postCount, setPostCount] = useState(0);
     const [postIds, setPostIds] = useState([]);
     const [currentPage, setCurrentPage] = useState({});
-    const [postsPerPage] = useState(2);
+    const [postsPerPage] = useState(6);
 
     useEffect(() => {
         setPostLoading(true);
