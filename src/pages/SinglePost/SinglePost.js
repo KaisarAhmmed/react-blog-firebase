@@ -14,16 +14,20 @@ import {
 } from "react-share";
 import { FiTwitter, FiFacebook, FiLinkedin } from "react-icons/fi";
 import { ImPinterest2, ImReddit } from "react-icons/im";
+import { FaRegHeart } from "react-icons/fa";
+
 import "./Single.css";
 import useUser from "../../hooks/useUser";
 import Loader from "../../components/Loader/Loader";
+import Likes from "../../components/Likes/Likes";
+import Bookmarks from "../../components/Bookmarks/Bookmarks";
 
 const SinglePost = () => {
     const { id } = useParams();
 
     const [isLoading, post] = usePost(id);
 
-    const { authorId } = post;
+    const { authorId, likes } = post;
 
     const [loading, author] = useUser(authorId);
 
@@ -40,37 +44,54 @@ const SinglePost = () => {
                 {post && (
                     <>
                         <h1 className="text-[60px] mb-6 ml-8">{post.title}</h1>
-                        <ul className="flex text-[#505050] mb-12 ml-8">
-                            <li className="relative flex pr-10 justify-start items-center before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px]">
-                                <img
-                                    src={Calender}
-                                    alt="date"
-                                    className="w-[20px] mr-2"
-                                />
-                                June 20, 2022
-                            </li>
-                            <li className="flex pr-10 relative before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px] before:top-[11px]">
-                                <img
-                                    src={Clock}
-                                    alt="reading time"
-                                    className="w-[20px] mr-2"
-                                />
-                                03 min read
-                            </li>
-                            <li className="flex">
-                                <img
-                                    src={Category}
-                                    alt="category"
-                                    className="w-[20px] mr-2"
-                                />
-                                {post.category}
-                            </li>
-                        </ul>
+                        <div className="flex justify-between items-center">
+                            <ul className="flex text-[#505050] mb-12 ml-8">
+                                <li className="relative flex pr-10 justify-start items-center before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px]">
+                                    <img
+                                        src={Calender}
+                                        alt="date"
+                                        className="w-[20px] mr-2"
+                                    />
+                                    June 20, 2022
+                                </li>
+                                <li className="flex pr-10 relative before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px] before:top-[11px]">
+                                    <img
+                                        src={Clock}
+                                        alt="reading time"
+                                        className="w-[20px] mr-2"
+                                    />
+                                    03 min read
+                                </li>
+                                <li className="flex pr-10 relative before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px] before:top-[11px]">
+                                    <img
+                                        src={Category}
+                                        alt="category"
+                                        className="w-[20px] mr-2"
+                                    />
+                                    {post.category}
+                                </li>
+                                <li className="flex items-center">
+                                    <FaRegHeart className="text-[18px]" />
+                                    <span className="inline-block mx-1.5">
+                                        {post.likes?.length}
+                                    </span>
+                                    {post.likes?.length < 2 ? "Like" : "Likes"}
+                                </li>
+                            </ul>
+                            <ul className="flex text-[#505050] mb-12 mr-8">
+                                <li className="mr-3">
+                                    <Bookmarks postId={id} />
+                                </li>
+                                <li>
+                                    <Likes id={id} likes={likes} />
+                                </li>
+                            </ul>
+                        </div>
                         <div className="mb-12">
                             <img
                                 src={post.imageUrl}
                                 alt={post.title}
-                                className="w-full h-[595px] object-cover rounded"
+                                className="w-full h-[595px] object-cover rounded bg-slate-50"
                             />
                         </div>
                         <div className="flex">

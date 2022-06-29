@@ -10,12 +10,12 @@ const Dashboard = () => {
     return (
         <Layout>
             <Breadcrumb title={"Dashboard"} />
-            <div className="mx-auto flex justify-center items-start gap-8">
+            <div className="mx-auto flex justify-center items-start gap-8 min-h-[50vh]">
                 <div className="w-3/12">
                     <ul className="bg-white/50 p-3 rounded">
                         <li>
                             <Link
-                                to="/"
+                                to="/dashboard"
                                 className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
                             >
                                 Dashboard
@@ -23,7 +23,7 @@ const Dashboard = () => {
                         </li>
                         <li>
                             <Link
-                                to="/"
+                                to="/dashboard"
                                 className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
                             >
                                 Bookmark Post

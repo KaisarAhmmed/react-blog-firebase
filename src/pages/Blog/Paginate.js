@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Pagination = ({
     postIds,
@@ -22,6 +22,13 @@ const Pagination = ({
         paginateId(postIds[prevBtn]);
     };
 
+    // useEffect(() => {
+    //     window.scrollTo({
+    //         behavior: "smooth",
+    //         top: "100px",
+    //     });
+    // }, [recentPage]);
+
     return (
         <div className="mt-20 flex justify-center items-center">
             <ul className="flex border border-white py-2 px-1 rounded">
@@ -34,8 +41,9 @@ const Pagination = ({
                         Prev
                     </button>
                 </li>
+
                 {postIds.map((id, index) => (
-                    <li key={index} className="mx-1">
+                    <li key={id.id} className="mx-1">
                         <button
                             disabled={`${
                                 currentPage.id === id.id ? "disabled" : ""
@@ -52,6 +60,7 @@ const Pagination = ({
                         </button>
                     </li>
                 ))}
+
                 <li className="mx-1">
                     <button
                         disabled={`${

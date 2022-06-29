@@ -91,6 +91,7 @@ const AddPost = () => {
             category: formData.category,
             tags: tags,
             authorId: user.userId,
+            likes: [],
             createdAt: formData.createdAt,
         }).then(async (result) => {
             await Promise.all(

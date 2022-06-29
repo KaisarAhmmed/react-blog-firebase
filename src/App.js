@@ -15,6 +15,7 @@ import Author from "./pages/Author/Author";
 import RequireAuth from "./pages/Login/RequiredAuth";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import UserProfile from "./pages/Dashboard/UserProfile";
+import Index from "./pages/Dashboard/Index";
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                             </RequireAuth>
                         }
                     >
+                        <Route index element={<Index></Index>}></Route>
                         <Route
                             index
                             path="/dashboard/profile"
