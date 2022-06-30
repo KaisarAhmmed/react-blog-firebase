@@ -52,7 +52,7 @@ const SinglePost = () => {
                                         alt="date"
                                         className="w-[20px] mr-2"
                                     />
-                                    June 20, 2022
+                                    20 Jun, 2022
                                 </li>
                                 <li className="flex pr-10 relative before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px] before:top-[11px]">
                                     <img
@@ -60,7 +60,7 @@ const SinglePost = () => {
                                         alt="reading time"
                                         className="w-[20px] mr-2"
                                     />
-                                    03 min read
+                                    {post?.readingTime} min read
                                 </li>
                                 <li className="flex pr-10 relative before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px] before:top-[11px]">
                                     <img
@@ -102,12 +102,23 @@ const SinglePost = () => {
                                     </span>
                                     <ul className="ml-8">
                                         <li className="mb-2">
-                                            <TwitterShareButton className="h-[42px] w-[42px] !border-[1px] !border-solid !border-[#ddd] rounded duration-300 group hover:!border-[#F08F80] hover:!bg-[#F08F80]">
+                                            <TwitterShareButton
+                                                title={post.title}
+                                                url={
+                                                    "https://localhost:3000/blog/"
+                                                }
+                                                hashtags={[post.category]}
+                                                className="h-[42px] w-[42px] !border-[1px] !border-solid !border-[#ddd] rounded duration-300 group hover:!border-[#F08F80] hover:!bg-[#F08F80]"
+                                            >
                                                 <FiTwitter className="mx-auto group-hover:text-white duration-300" />
                                             </TwitterShareButton>
                                         </li>
                                         <li className="mb-2">
-                                            <FacebookShareButton className="h-[42px] w-[42px] !border-[1px] !border-solid !border-[#ddd] rounded duration-300 group hover:!border-[#F08F80] hover:!bg-[#F08F80]">
+                                            <FacebookShareButton
+                                                title={post.title}
+                                                url={"/blog/"}
+                                                className="h-[42px] w-[42px] !border-[1px] !border-solid !border-[#ddd] rounded duration-300 group hover:!border-[#F08F80] hover:!bg-[#F08F80]"
+                                            >
                                                 <FiFacebook className="mx-auto group-hover:text-white duration-300" />
                                             </FacebookShareButton>
                                         </li>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/userAuthContext";
+import MobileMenu from "../MobileMenu/MobileMenu";
 
 const Header = () => {
     const { user, logOut } = useUserAuth();
@@ -11,14 +12,15 @@ const Header = () => {
 
     return (
         <div className="container mx-auto flex py-8 items-center">
-            <div className="w-3/12">
+            <div className="lg:w-3/12 w-full flex justify-between">
                 <Link to="/">
                     <h1 className="text-2xl font-black uppercase text-black">
                         RFB
                     </h1>
                 </Link>
+                <MobileMenu />
             </div>
-            <div className="w-9/12">
+            <div className="w-9/12 hidden lg:block">
                 <ul className="flex justify-end">
                     <li>
                         <Link

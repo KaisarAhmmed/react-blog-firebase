@@ -13,9 +13,9 @@ const Home = () => {
     return (
         <Layout>
             <div className="text-2xl pt-6 pb-28 ">
-                <h1 className="w-10/12 mx-auto text-[64px] text-[#152035] text-center leading-normal relative z-0">
+                <h1 className="lg:w-10/12 lg:text-[64px] w-full mx-auto text-[40px] text-[#152035] text-center leading-normal relative z-0">
                     Taking control of your daily life is easy when you know how!
-                    <span className="absolute left-2/4 top-2/4 -translate-y-1/2 -translate-x-1/2 -z-10">
+                    <span className="absolute left-2/4 top-2/4 -translate-y-1/2 -translate-x-1/2 -z-10 w-full lg:w-auto">
                         <img src={Wave} alt="wave" />
                     </span>
                 </h1>
@@ -24,7 +24,7 @@ const Home = () => {
                 <Breadcrumb title={"Recent Posts"} />
             </div>
             {isLoading && <Loader />}
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-10 gap-y-12">
                 {posts &&
                     posts
                         .slice(0, 6)

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
     Timestamp,
     collection,
@@ -28,6 +28,15 @@ const AddPost = () => {
 
     const [tags, setTags] = useState(0);
     const [details, setDetails] = useState("");
+    const [readTime, setReadTime] = useState(1);
+
+    useEffect(() => {
+        const wpm = 100;
+        const words = details.trim().split(/\s+/).length;
+        const time = Math.ceil(words / wpm);
+
+        setReadTime(time);
+    }, [details]);
 
     const handlDescription = (e) => {
         setDetails(e);
@@ -81,8 +90,6 @@ const AddPost = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    console.log(user);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         await addDoc(collection(db, "posts"), {
@@ -92,6 +99,7 @@ const AddPost = () => {
             tags: tags,
             authorId: user.userId,
             likes: [],
+            readingTime: readTime,
             createdAt: formData.createdAt,
         }).then(async (result) => {
             await Promise.all(
@@ -100,10 +108,8 @@ const AddPost = () => {
                         storage,
                         `posts/${result.id}/${image.path}`
                     );
-                    //console.log(imageRef);
                     uploadBytes(imageRef, image, "data_url").then(async () => {
                         const downloadUrl = await getDownloadURL(imageRef);
-                        //console.log(downloadUrl);
                         await updateDoc(doc(db, "posts", result.id), {
                             imageUrl: downloadUrl,
                         })
@@ -135,7 +141,7 @@ const AddPost = () => {
                                 onChange={(e) => handleInputChange(e)}
                             />
                         </div>
-                        <div className="mb-6">
+                        <div className="mb-2">
                             <label
                                 className="font-medium"
                                 htmlFor="description"
@@ -154,6 +160,7 @@ const AddPost = () => {
                                 ]}
                             />
                         </div>
+                        <div className="mb-6">{readTime} min read</div>
                         <div>
                             <button
                                 type="submit"

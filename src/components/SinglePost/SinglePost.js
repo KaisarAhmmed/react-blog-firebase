@@ -17,8 +17,8 @@ const SinglePost = ({ doc }) => {
     const { userId, name, photo } = author;
 
     return (
-        <article className="px-7 group">
-            <div className="relative mb-[60px] before:absolute before:content-[''] before:h-full before:w-[calc(100%_+_60px)] before:bg-white/50 before:top-[30px] before:left-[-30px] before:duration-300 before:rounded group-hover:before:bg-white">
+        <article className="lg:px-7 px-5 group">
+            <div className="relative lg:mb-[60px] mb-[30px] before:absolute before:content-[''] before:h-full lg:before:w-[calc(100%_+_60px)] before:w-[calc(100%_+_30px)] before:bg-white/50 lg:before:top-[30px] before:top-[15px] lg:before:left-[-30px] before:left-[-15px] before:duration-300 before:rounded group-hover:before:bg-white">
                 <div
                     onClick={() => navigateToBlogSingle(doc.id)}
                     className="cursor-pointer"
@@ -26,7 +26,7 @@ const SinglePost = ({ doc }) => {
                     <img
                         src={doc.imageUrl}
                         alt={doc.title}
-                        className="h-[350px] w-full object-cover rounded grayscale duration-300 group-hover:grayscale-0 group-hover:-translate-y-[4px]"
+                        className="lg:h-[350px] h-[280px] w-full object-cover rounded grayscale duration-300 group-hover:grayscale-0 group-hover:-translate-y-[4px]"
                     />
                 </div>
             </div>
@@ -38,39 +38,32 @@ const SinglePost = ({ doc }) => {
                             alt="date"
                             className="w-[20px] mr-2"
                         />
-
                         {doc.createdAt.toDate().toDateString()}
                     </li>
 
-                    <li className="flex pr-10 relative before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px] before:top-[11px]">
+                    <li className="flex">
                         <img
                             src={Clock}
                             alt="reading time"
                             className="w-[20px] mr-2"
                         />
-                        03 min read
-                    </li>
-                    <li className="flex">
-                        <img
-                            src={Category}
-                            alt="category"
-                            className="w-[20px] mr-2"
-                        />
-                        {doc.category}
+                        {doc?.readingTime} min read
                     </li>
                 </ul>
                 <div
                     onClick={() => navigateToBlogSingle(doc.id)}
                     className="text-[#152035] duration-200 cursor-pointer hover:text-[#F08F80]"
                 >
-                    <h2 className="text-[30px] mb-4 leading-10">{doc.title}</h2>
+                    <h2 className="lg:text-[30px] text-[26px] lg:mb-4 mb-2 leading-10">
+                        {doc.title}
+                    </h2>
                 </div>
-                <p className="text-[#505050] leading-[1.8] mb-4 font-medium">
+                <p className="text-[#505050] leading-[1.8] mb-4 font-medium text-[15px] lg:text-base">
                     {doc.description.slice(0, 160).replace(/(<([^>]+)>)/gi, "")}
                     ...
                 </p>
                 <ul className="flex items-center">
-                    <li className="relative font-medium text-[#505050] pr-10 before:absolute before:content-[''] before:h-[5px] before:w-[5px] before:bg-[#505050] before:rounded-full before:right-[18px] before:top-[10px]">
+                    <li className="relative text-sm lg:text-base font-medium text-[#505050] pr-10 before:absolute before:content-[''] before:h-[5px] before:w-[5px] before:bg-[#505050] before:rounded-full before:right-[18px] before:top-[10px]">
                         <Link
                             to={`author/${userId}`}
                             className="flex items-center"

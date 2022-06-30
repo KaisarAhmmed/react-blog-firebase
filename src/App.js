@@ -18,6 +18,7 @@ import UserProfile from "./pages/Dashboard/UserProfile";
 import Index from "./pages/Dashboard/Index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import EditProfile from "./pages/Dashboard/EditProfile";
 
 function App() {
     return (
@@ -44,6 +45,15 @@ function App() {
                             element={
                                 <RequireAuth>
                                     <UserProfile />
+                                </RequireAuth>
+                            }
+                        ></Route>
+                        <Route
+                            index
+                            path="/dashboard/edit-profile"
+                            element={
+                                <RequireAuth>
+                                    <EditProfile />
                                 </RequireAuth>
                             }
                         ></Route>
