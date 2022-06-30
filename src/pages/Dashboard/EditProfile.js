@@ -9,10 +9,13 @@ const EditProfile = () => {
     const [user] = useOutletContext();
     const [profileImage, setProfileImage] = useState();
     const [imageUploading, setImageUploading] = useState(false);
+
     const [userData, setUserData] = useState({
         name: user.name ? user.name : "",
         bio: user.bio ? user.bio : "",
     });
+
+    console.log(userData);
 
     const hangleInputChange = (e) => {
         const { name, value } = e.target;
@@ -22,7 +25,18 @@ const EditProfile = () => {
         });
     };
 
-    console.log(userData);
+    const handleUpdateInputChange = async (e) => {
+        e.preventDefault();
+        if (user.id == null) return;
+        await updateDoc(doc(db, "users", user.id), {
+            name: userData.name,
+            bio: userData.bio,
+        })
+            .then((res) => {
+                toast.success("Profile date updated successfully.");
+            })
+            .catch((error) => console.log(error));
+    };
 
     useEffect(() => {
         if (profileImage == null || user.id == null) return;
@@ -71,7 +85,10 @@ const EditProfile = () => {
                 </div>
             </div>
             <div className="col-span-2">
-                <form action="" className="grid grid-cols-2 gap-5">
+                <form
+                    onSubmit={handleUpdateInputChange}
+                    className="grid grid-cols-2 gap-5"
+                >
                     <div className="">
                         <label htmlFor="name">Name</label>
                         <input
@@ -116,7 +133,7 @@ const EditProfile = () => {
                             cols="30"
                             rows="5"
                             className="w-full border px-3 py-2.5 rounded outline-none text-[15px] mt-1.5"
-                            value={userData.bio ? userData.bio : user.bio}
+                            value={userData.bio ? userData.bio : ""}
                             onChange={(e) => hangleInputChange(e)}
                         ></textarea>
                     </div>

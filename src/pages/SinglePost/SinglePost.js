@@ -172,10 +172,7 @@ const SinglePost = () => {
                                     {author.name}
                                 </h4>
                                 <p className="text-[#505050] leanding-10 text-base">
-                                    Kaisar Ahmmed is a writer based in New York
-                                    City. He's interested in all things tech,
-                                    science, and photography related, and likes
-                                    to yo-yo in...
+                                    {author.bio}
                                 </p>
                             </div>
                         </div>
