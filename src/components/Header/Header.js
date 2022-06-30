@@ -76,7 +76,7 @@ const Header = () => {
                                         src={user.photo}
                                         alt={user.name}
                                         title={user.name}
-                                        className="rounded-full"
+                                        className="rounded-full h-8 w-8 object-cover"
                                     />
                                 </div>
                                 <ul className="absolute border border-[#f0f0f0] rounded shadow-lg w-full top-14 bg-white text-black text-sm p-1 z-50 left-0 text-left opacity-0 invisible duration-300 group-hover:opacity-100 group-hover:visible group-hover:top-10">
