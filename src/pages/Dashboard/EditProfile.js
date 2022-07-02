@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import { db, storage } from "../../firebase.config";
+import UserPlaceholderImage from "../../images/user-placeholder.png";
 
 const EditProfile = () => {
     const [user] = useOutletContext();
@@ -62,7 +63,7 @@ const EditProfile = () => {
         <div className="grid grid-cols-3 gap-8 bg-white/50 p-6 rounded">
             <div className="">
                 <img
-                    src={user.photo}
+                    src={user.photo ? user.photo : UserPlaceholderImage}
                     alt={user.name}
                     className={`h-36 w-36 rounded-full mx-auto mb-8 ${
                         imageUploading ? "opacity-50" : ""

@@ -8,7 +8,13 @@ import {
     signInWithPopup,
 } from "firebase/auth";
 import { auth, db } from "../firebase.config";
-import { doc, onSnapshot } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDoc,
+    onSnapshot,
+    setDoc,
+} from "firebase/firestore";
 
 const userAuthContext = createContext();
 
@@ -18,15 +24,64 @@ export const UserAuthContextProvider = ({ children }) => {
     const logIn = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);
     };
-    const signUp = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password);
+    const signUpWithEmail = (name, email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password)
+            .then(async (result) => {
+                const user = result.user;
+                setUser(user);
+
+                const usersRef = collection(db, "users");
+                const docRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                } else {
+                    await setDoc(doc(usersRef, user.uid), {
+                        name: user.displayName ? user.displayName : name,
+                        email: user.email,
+                        userId: user.uid,
+                        role: "subscriber",
+                        bookmarks: [],
+                        bio: "",
+                        photo: user.photoURL ? user.photoURL : "",
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
     };
     const logOut = () => {
         return signOut(auth);
     };
     const googleSignIn = () => {
         const googleAuthProvider = new GoogleAuthProvider();
-        return signInWithPopup(auth, googleAuthProvider);
+
+        return signInWithPopup(auth, googleAuthProvider)
+            .then(async (result) => {
+                const user = result.user;
+                setUser(user);
+
+                const usersRef = collection(db, "users");
+                const docRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                } else {
+                    await setDoc(doc(usersRef, user.uid), {
+                        name: user.displayName,
+                        email: user.email,
+                        userId: user.uid,
+                        role: "subscriber",
+                        bookmarks: [],
+                        bio: "",
+                        photo: user.photoURL ? user.photoURL : "",
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     useEffect(() => {
@@ -46,7 +101,7 @@ export const UserAuthContextProvider = ({ children }) => {
 
     return (
         <userAuthContext.Provider
-            value={{ user, logIn, signUp, logOut, googleSignIn }}
+            value={{ user, logIn, signUpWithEmail, logOut, googleSignIn }}
         >
             {children}
         </userAuthContext.Provider>

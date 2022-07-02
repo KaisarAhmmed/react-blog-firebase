@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useOutletContext } from "react-router-dom";
+import UserPlaceholderImage from "../../images/user-placeholder.png";
 
 const UserProfile = () => {
     const [user] = useOutletContext();
@@ -8,7 +9,7 @@ const UserProfile = () => {
         <div className="grid grid-cols-3 gap-8 bg-white/50 p-6 rounded">
             <div className="text-center">
                 <img
-                    src={user.photo}
+                    src={user.photo ? user.photo : UserPlaceholderImage}
                     alt={user.name}
                     className="h-36 w-36 rounded-full mx-auto mb-8"
                 />

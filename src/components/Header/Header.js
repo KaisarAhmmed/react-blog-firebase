@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/userAuthContext";
 import MobileMenu from "../MobileMenu/MobileMenu";
+import UserPlaceholderImage from "../../images/user-placeholder.png";
 
 const Header = () => {
     const { user, logOut } = useUserAuth();
@@ -73,7 +74,11 @@ const Header = () => {
                                 </div>
                                 <div className="w-8 rounded-full">
                                     <img
-                                        src={user.photo}
+                                        src={
+                                            user.photo
+                                                ? user.photo
+                                                : UserPlaceholderImage
+                                        }
                                         alt={user.name}
                                         title={user.name}
                                         className="rounded-full h-8 w-8 object-cover"

@@ -1,34 +1,53 @@
-import { useRef, useState } from "react";
+import React from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import { useUserAuth } from "../../context/userAuthContext";
-import SocialLogin from "./SocialLogin";
+import SocialLogin from "../Login/SocialLogin";
 
-const Login = () => {
-    const { logIn } = useUserAuth();
-    const emailRef = useRef();
-    const passRef = useRef();
+const Register = () => {
+    const { signUpWithEmail } = useUserAuth();
     const navigate = useNavigate();
-    const [error, setError] = useState("");
+    const emailRef = useRef();
+    const nameRef = useRef();
+    const passwordRef = useRef();
 
-    const handleEmailSignIn = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
-        setError("");
+
+        const name = nameRef.current.value;
         const email = emailRef.current.value;
-        const pass = passRef.current.value;
+        const password = passwordRef.current.value;
 
         try {
-            await logIn(email, pass);
+            await signUpWithEmail(name, email, password);
             navigate("/");
         } catch (error) {
-            setError(error.message);
+            console.log(error);
         }
     };
 
     return (
         <Layout>
             <div className="text-center lg:w-5/12 w-full mx-auto bg-white/80 rounded p-6">
-                <form onSubmit={handleEmailSignIn}>
+                <form onSubmit={handleSignup}>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="email"
+                            className="text-left block mb-1.5"
+                        >
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            ref={nameRef}
+                            placeholder="Type your name..."
+                            className="border w-full rounded p-3 outline-none duration-300 border-[#bdbdbd] text-[15px]"
+                            required
+                        />
+                    </div>
                     <div className="mb-4">
                         <label
                             htmlFor="email"
@@ -57,20 +76,17 @@ const Login = () => {
                             type="password"
                             name="password"
                             id="password"
-                            ref={passRef}
+                            ref={passwordRef}
                             placeholder="Type your password..."
                             className="border w-full rounded p-3 outline-none duration-300 border-[#bdbdbd] text-[15px]"
                             required
                         />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-8">
                         <button className="bg-primary px-20 py-3 rounded duration-300 text-white uppercase hover:bg-black">
                             Login
                         </button>
                     </div>
-                    {error && (
-                        <p className="mb-6 text-red-500 text-sm">{error}</p>
-                    )}
                 </form>
                 <div className="divider">OR</div>
                 <SocialLogin />
@@ -79,4 +95,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
