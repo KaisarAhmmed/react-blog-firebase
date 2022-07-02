@@ -1,7 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import { db, storage } from "../../firebase.config";
 
@@ -9,6 +9,7 @@ const EditProfile = () => {
     const [user] = useOutletContext();
     const [profileImage, setProfileImage] = useState();
     const [imageUploading, setImageUploading] = useState(false);
+    const navigate = useNavigate();
 
     const [userData, setUserData] = useState({
         name: user.name ? user.name : "",
@@ -34,6 +35,7 @@ const EditProfile = () => {
         })
             .then((res) => {
                 toast.success("Profile date updated successfully.");
+                navigate("/dashboard/profile");
             })
             .catch((error) => console.log(error));
     };

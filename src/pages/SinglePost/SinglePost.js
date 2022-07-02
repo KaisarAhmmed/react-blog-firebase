@@ -38,6 +38,8 @@ const SinglePost = () => {
             </div>
         );
 
+    const { name, photo, bio } = author;
+
     return (
         <Layout>
             <div className="w-11/12 mx-auto ">
@@ -52,7 +54,9 @@ const SinglePost = () => {
                                         alt="date"
                                         className="w-[20px] mr-2"
                                     />
-                                    20 Jun, 2022
+                                    {undefined !== post.createdAt
+                                        ? post.createdAt.toDate().toDateString()
+                                        : ""}
                                 </li>
                                 <li className="flex pr-10 relative before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px] before:top-[11px]">
                                     <img
@@ -163,16 +167,23 @@ const SinglePost = () => {
                         </div>
                         <div className="mt-24 ml-8 mr-8 flex gap-10">
                             <img
-                                src={author.photo}
-                                alt={author.name}
+                                src={photo}
+                                alt={name}
                                 className="h-[155px] w-[155px] object-cover rounded"
                             />
                             <div>
                                 <h4 className="text-2xl text-[#212529] mb-5">
-                                    {author.name}
+                                    {name}
                                 </h4>
                                 <p className="text-[#505050] leanding-10 text-base">
-                                    {author.bio}
+                                    {undefined !== bio
+                                        ? bio.slice(0, 160)
+                                            ? `${bio.slice(0, 160)}...`
+                                            : bio.slice(0, 160)
+                                        : ""}
+
+                                    {!bio &&
+                                        `${name} is a writer based in New York City. He's interested in all things tech, science, and photography related, and likes to read book and more.`}
                                 </p>
                             </div>
                         </div>

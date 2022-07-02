@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import AddPost from "./pages/AddPost/AddPost";
+import AddPost from "./pages/Dashboard/AddPost";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import NotFound from "./components/Not Found/NotFound";
@@ -19,6 +19,7 @@ import Index from "./pages/Dashboard/Index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditProfile from "./pages/Dashboard/EditProfile";
+import BookmarkPost from "./pages/Dashboard/BookmarkPost";
 
 function App() {
     return (
@@ -45,6 +46,15 @@ function App() {
                             element={
                                 <RequireAuth>
                                     <UserProfile />
+                                </RequireAuth>
+                            }
+                        ></Route>
+                        <Route
+                            index
+                            path="/dashboard/bookmark-post"
+                            element={
+                                <RequireAuth>
+                                    <BookmarkPost />
                                 </RequireAuth>
                             }
                         ></Route>

@@ -10,3 +10,7 @@ body {
 h1,h2,h4,h3 {
   font-family: 'Crete Round', serif;
 }
+.table :where(th, td) {
+  padding: .75rem;
+  font-size: 15px;
+}

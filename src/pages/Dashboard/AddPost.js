@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import {
-    Timestamp,
     collection,
     addDoc,
     updateDoc,
     doc,
+    serverTimestamp,
 } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db, storage } from "../../firebase.config";
@@ -12,9 +12,11 @@ import { useDropzone } from "react-dropzone";
 import Select from "react-select";
 import { RichTextEditor } from "@mantine/rte";
 import { useUserAuth } from "../../context/userAuthContext";
+import { toast } from "react-toastify";
 
 const AddPost = () => {
     const { user } = useUserAuth();
+    const titleRef = useRef(null);
 
     const options = [
         { value: "node", label: "Node" },
@@ -26,9 +28,10 @@ const AddPost = () => {
         { value: "business", label: "Business" },
     ];
 
-    const [tags, setTags] = useState(0);
+    const [tags, setTags] = useState([]);
     const [details, setDetails] = useState("");
     const [readTime, setReadTime] = useState(1);
+    const [selectedImage, setSelectedImage] = useState([]);
 
     useEffect(() => {
         const wpm = 100;
@@ -51,8 +54,6 @@ const AddPost = () => {
     const handleCatChange = (newValue) => {
         setFormData({ ...formData, category: newValue.value });
     };
-
-    const [selectedImage, setSelectedImage] = useState([]);
 
     const onDrop = useCallback((acceptedFiles) => {
         setSelectedImage(
@@ -81,9 +82,8 @@ const AddPost = () => {
 
     const [formData, setFormData] = useState({
         title: "",
-        description: "",
         category: "",
-        createdAt: Timestamp.now().toDate(),
+        createdAt: serverTimestamp(),
     });
 
     const handleInputChange = (e) => {
@@ -92,47 +92,69 @@ const AddPost = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await addDoc(collection(db, "posts"), {
-            title: formData.title,
-            description: details,
-            category: formData.category,
-            tags: tags,
-            authorId: user.userId,
-            likes: [],
-            readingTime: readTime,
-            createdAt: formData.createdAt,
-        }).then(async (result) => {
-            await Promise.all(
-                selectedImage.map((image) => {
-                    const imageRef = ref(
-                        storage,
-                        `posts/${result.id}/${image.path}`
-                    );
-                    uploadBytes(imageRef, image, "data_url").then(async () => {
-                        const downloadUrl = await getDownloadURL(imageRef);
-                        await updateDoc(doc(db, "posts", result.id), {
-                            imageUrl: downloadUrl,
-                        })
-                            .then((res) => {
-                                console.log("successfull");
-                            })
-                            .catch((err) => console.log(err));
-                    });
-                })
-            );
-        });
+
+        const countText = details.trim().split(/\s+/).length;
+
+        if (
+            !formData.category ||
+            !formData.title ||
+            countText < 5 ||
+            !tags ||
+            selectedImage === 0
+        ) {
+            toast.warning("Some field missing.! Please check all fields.");
+            return;
+        }
+
+        e.target.reset();
+
+        // await addDoc(collection(db, "posts"), {
+        //     title: formData.title,
+        //     description: details,
+        //     category: formData.category,
+        //     tags: tags,
+        //     authorId: user.userId,
+        //     likes: [],
+        //     readingTime: readTime,
+        //     createdAt: formData.createdAt,
+        // }).then(async (result) => {
+        //     await Promise.all(
+        //         selectedImage.map((image) => {
+        //             const imageRef = ref(
+        //                 storage,
+        //                 `posts/${result.id}/${image.path}`
+        //             );
+        //             uploadBytes(imageRef, image, "data_url").then(async () => {
+        //                 const downloadUrl = await getDownloadURL(imageRef);
+        //                 await updateDoc(doc(db, "posts", result.id), {
+        //                     imageUrl: downloadUrl,
+        //                 })
+        //                     .then((res) => {
+        //                         //console.log("successfull");
+        //                     })
+        //                     .catch((err) => console.log(err));
+        //             });
+        //         })
+        //     );
+        //     setFormData({ title: "", category: "" });
+        //     setTags("");
+        //     setDetails("");
+        //     setSelectedImage([]);
+        //     toast.success("Post added successfully...");
+        // });
     };
 
     return (
         <>
-            <div className="">
-                <form onSubmit={handleSubmit} className="flex gap-10">
+            <div className="bg-white/50 p-6 rounded">
+                <form onSubmit={handleSubmit} className="flex gap-6">
                     <div className="w-8/12">
                         <div className="mb-6">
                             <label className="font-medium" htmlFor="title">
                                 <h3>Title</h3>
                             </label>
                             <input
+                                ref={titleRef}
                                 type="text"
                                 name="title"
                                 id="title"
@@ -151,7 +173,7 @@ const AddPost = () => {
                             <RichTextEditor
                                 value={details}
                                 onChange={handlDescription}
-                                placeholder="Write description..."
+                                placeholder="Write description ( min 15 words)..."
                                 controls={[
                                     ["bold", "italic", "underline", "link"],
                                     ["unorderedList", "h1", "h2", "h3"],

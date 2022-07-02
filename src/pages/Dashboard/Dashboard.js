@@ -8,7 +8,7 @@ const Dashboard = () => {
     const { user } = useUserAuth();
 
     return (
-        <Layout>
+        <div className="w-[1400px] mx-auto">
             <Breadcrumb title={"Dashboard"} />
             <div className="mx-auto flex justify-center items-start gap-8 min-h-[50vh]">
                 <div className="w-3/12">
@@ -23,7 +23,7 @@ const Dashboard = () => {
                         </li>
                         <li>
                             <Link
-                                to="/dashboard"
+                                to="/dashboard/bookmark-post"
                                 className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
                             >
                                 Bookmark Post
@@ -51,7 +51,7 @@ const Dashboard = () => {
                     <Outlet context={[user]}></Outlet>
                 </div>
             </div>
-        </Layout>
+        </div>
     );
 };
 
