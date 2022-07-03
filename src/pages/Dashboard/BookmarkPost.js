@@ -1,7 +1,9 @@
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 import { db } from "../../firebase.config";
+import TablePost from "./TablePost";
 
 const BookmarkPost = () => {
     const [user] = useOutletContext();
@@ -37,12 +39,28 @@ const BookmarkPost = () => {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Post title</th>
-                            <th>Category</th>
+                            <th>Title</th>
+                            <th>Author</th>
                             <th>Date</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        {postLoading && (
+                            <tr>
+                                <td colSpan="4">
+                                    <Loader text={"Loading..."} />
+                                </td>
+                            </tr>
+                        )}
+                        {bookmarkPosts &&
+                            bookmarkPosts.map((item, index) => (
+                                <TablePost
+                                    key={item.id}
+                                    item={item}
+                                    serial={index}
+                                />
+                            ))}
+                    </tbody>
                 </table>
             </div>
         </div>

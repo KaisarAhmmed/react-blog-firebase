@@ -21,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EditProfile from "./pages/Dashboard/EditProfile";
 import BookmarkPost from "./pages/Dashboard/BookmarkPost";
 import Register from "./pages/Register/Register";
+import Users from "./pages/Dashboard/Users";
 
 function App() {
     return (
@@ -73,6 +74,14 @@ function App() {
                             element={
                                 <RequireAuth>
                                     <AddPost />
+                                </RequireAuth>
+                            }
+                        ></Route>
+                        <Route
+                            path="/dashboard/users"
+                            element={
+                                <RequireAuth>
+                                    <Users />
                                 </RequireAuth>
                             }
                         ></Route>
