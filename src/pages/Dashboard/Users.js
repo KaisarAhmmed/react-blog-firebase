@@ -6,8 +6,6 @@ import TableUser from "./TableUser";
 const Users = () => {
     const [isLoading, users] = useAllUser();
 
-    console.log(users);
-
     return (
         <div className="bg-white/50 rounded p-6">
             <div className="overflow-x-auto">

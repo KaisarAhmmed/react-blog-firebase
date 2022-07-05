@@ -1,8 +1,23 @@
-import React from "react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { db } from "../../firebase.config";
 import UserPlaceholder from "../../images/user-placeholder.png";
 
 const TableUser = ({ user, index }) => {
-    const { name, email, role, photo } = user;
+    const { name, email, role, photo, userId, bookmarks } = user;
+    const [userPost, setUserPost] = useState(0);
+
+    useEffect(() => {
+        const postsRef = collection(db, "posts");
+        const q = query(postsRef, where("authorId", "==", userId));
+        onSnapshot(q, (snapshot) => {
+            const postsData = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setUserPost(postsData.length);
+        });
+    }, [user]);
 
     return (
         <tr>
@@ -42,25 +57,27 @@ const TableUser = ({ user, index }) => {
                         >
                             ✕
                         </label>
-                        <div className="flex flex-col justify-center items-center">
-                            <img
-                                src={photo ? photo : UserPlaceholder}
-                                alt={name}
-                                className="w-40 h-40 object-cover rounded-md mb-3"
-                            />
-                            <p className="font-bold text-[18px]">{name}</p>
+                        <div className="flex justify-start items-start">
+                            <div className="w-4/12">
+                                <img
+                                    src={photo ? photo : UserPlaceholder}
+                                    alt={name}
+                                    className="w-40 h-40 object-cover rounded-md mb-3"
+                                />
+                                <p className="font-medium ">Name : {name}</p>
+                                <p className="font-medium ">Role : {role}</p>
+                            </div>
+                            <div className="w-8/12">
+                                <p>Email: {email}</p>
+                                <p>Total Post: {userPost}</p>
+                                <p>
+                                    Bookmarks:
+                                    {bookmarks !== undefined
+                                        ? bookmarks.length
+                                        : 0}
+                                </p>
+                            </div>
                         </div>
-                        <p className="py-4 w-full whitespace-normal">
-                            You've been selected htmlFor a chance to get one
-                            year of subscription to use Wikipedia htmlFor
-                            free!You've been selected htmlFor a chance to get
-                            one year of subscription to use Wikipedia htmlFor
-                            free!You've been selected htmlFor a chance to get
-                            one year of subscription to use Wikipedia htmlFor
-                            free!You've been selected htmlFor a chance to get
-                            one year of subscription to use Wikipedia htmlFor
-                            free!
-                        </p>
                     </div>
                 </div>
             </td>
