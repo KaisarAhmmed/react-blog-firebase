@@ -40,7 +40,10 @@ const TableUser = ({ user, index }) => {
             </td>
             <td>{email}</td>
             <td>
-                <label htmlFor={`user-details-${index}`} className="">
+                <label
+                    htmlFor={`user-details-${index}`}
+                    className="cursor-pointer hover:underline duration-200"
+                >
                     Details
                 </label>
 
@@ -50,24 +53,23 @@ const TableUser = ({ user, index }) => {
                     className="modal-toggle"
                 />
                 <div className="modal">
-                    <div className="modal-box relative w-8/12 max-w-3xl">
+                    <div className="modal-box relative w-4/12 max-w-3xl">
                         <label
                             htmlFor={`user-details-${index}`}
                             className="btn btn-sm btn-circle absolute right-2 top-2"
                         >
                             ✕
                         </label>
-                        <div className="flex justify-start items-start">
-                            <div className="w-4/12">
+                        <div className="flex justify-center items-center">
+                            <div className="text-center">
                                 <img
                                     src={photo ? photo : UserPlaceholder}
                                     alt={name}
-                                    className="w-40 h-40 object-cover rounded-md mb-3"
+                                    className="w-40 h-40 object-cover rounded-md mb-3 mx-auto"
                                 />
                                 <p className="font-medium ">Name : {name}</p>
                                 <p className="font-medium ">Role : {role}</p>
-                            </div>
-                            <div className="w-8/12">
+
                                 <p>Email: {email}</p>
                                 <p>Total Post: {userPost}</p>
                                 <p>
