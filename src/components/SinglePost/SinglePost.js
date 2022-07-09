@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Calender from "../../images/calender.svg";
 import Clock from "../../images/clock.svg";
-import Category from "../../images/category.svg";
 import useUser from "../../hooks/useUser";
 
 const SinglePost = ({ doc }) => {

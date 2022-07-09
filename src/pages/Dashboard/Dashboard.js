@@ -12,7 +12,7 @@ const Dashboard = () => {
             <Breadcrumb title={"Dashboard"} />
             <div className="mx-auto flex justify-center items-start gap-8 min-h-[50vh]">
                 <div className="w-3/12">
-                    <ul className="bg-white/50 p-3 rounded">
+                    <ul className="bg-white/70 p-3 rounded">
                         <li>
                             <Link
                                 to="/dashboard"
