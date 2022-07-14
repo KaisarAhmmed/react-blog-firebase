@@ -12,7 +12,7 @@ const Breadcrumb = ({ title, topTitle, bottomLink }) => {
                 </p>
             )}
             <h2
-                className={`text-[38px] text-center text-[#152035] ${
+                className={`text-[38px] text-center text-[#152035] capitalize ${
                     bottomLink ? "mb-4" : "mb-20"
                 }`}
             >
@@ -28,12 +28,12 @@ const Breadcrumb = ({ title, topTitle, bottomLink }) => {
                     <li className="relative before:absolute before:content-[''] before:h-1 before:w-1 before:bg-[#4C4A49] before:rounded-full before:top-2.5 before:-right-[22px]">
                         <Link
                             to="/"
-                            className="flex items-center gap-1 font-medium"
+                            className="flex items-center gap-1 font-medium duration-300 hover:underline"
                         >
                             <AiOutlineHome /> Home
                         </Link>
                     </li>
-                    <li>{title}</li>
+                    <li className="capitalize">{title}</li>
                 </ul>
             )}
         </>

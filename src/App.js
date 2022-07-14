@@ -23,6 +23,8 @@ import Register from "./pages/Register/Register";
 import Users from "./pages/Dashboard/Users";
 import AuthorDetails from "./pages/Author/AuthorDetails";
 import PostDetails from "./pages/PostDetails/PostDetails";
+import Categories from "./pages/Categories/Categories";
+import SingleCategory from "./pages/Categories/SingleCategory";
 
 function App() {
     return (
@@ -33,6 +35,11 @@ function App() {
                     <Route path="/" element={<Home />}></Route>
                     <Route path="/blog/:id" element={<PostDetails />}></Route>
                     <Route path="/about" element={<About />}></Route>
+                    <Route path="/categories" element={<Categories />}></Route>
+                    <Route
+                        path="/categories/:id"
+                        element={<SingleCategory />}
+                    ></Route>
                     <Route path="/author" element={<Author />}></Route>
                     <Route
                         path="/author/:authorId"
