@@ -8,12 +8,15 @@ import SingleAuthor from "./SingleAuthor";
 const Author = () => {
     const [isLoading, users] = useAllUser();
 
-    if (isLoading) return <Loader text="Loading author..." />;
-
     return (
         <Layout>
             <Breadcrumb title={"Author"} bottomLink="Author" />
-            <div className="grid grid-cols-4 gap-8 text-center">
+            {isLoading && (
+                <div className="h-[400px] flex justify-center items-center">
+                    <Loader text="Loading author..." />
+                </div>
+            )}
+            <div className="grid grid-cols-4 pt-10 gap-8 text-center">
                 {users &&
                     users.map((author) => (
                         <SingleAuthor key={author.id} author={author} />

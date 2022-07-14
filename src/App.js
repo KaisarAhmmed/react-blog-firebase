@@ -9,7 +9,6 @@ import Blog from "./pages/Blog/Blog";
 import Contact from "./pages/Contact/Contact";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
-import SinglePost from "./pages/SinglePost/SinglePost";
 import { UserAuthContextProvider } from "./context/userAuthContext";
 import Author from "./pages/Author/Author";
 import RequireAuth from "./pages/Login/RequiredAuth";
@@ -22,6 +21,8 @@ import EditProfile from "./pages/Dashboard/EditProfile";
 import BookmarkPost from "./pages/Dashboard/BookmarkPost";
 import Register from "./pages/Register/Register";
 import Users from "./pages/Dashboard/Users";
+import AuthorDetails from "./pages/Author/AuthorDetails";
+import PostDetails from "./pages/PostDetails/PostDetails";
 
 function App() {
     return (
@@ -30,9 +31,13 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />}></Route>
-                    <Route path="/blog/:id" element={<SinglePost />}></Route>
+                    <Route path="/blog/:id" element={<PostDetails />}></Route>
                     <Route path="/about" element={<About />}></Route>
                     <Route path="/author" element={<Author />}></Route>
+                    <Route
+                        path="/author/:authorId"
+                        element={<AuthorDetails />}
+                    ></Route>
                     <Route
                         path="/dashboard"
                         element={

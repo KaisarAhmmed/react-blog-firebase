@@ -16,13 +16,14 @@ import { FiTwitter, FiFacebook, FiLinkedin } from "react-icons/fi";
 import { ImPinterest2, ImReddit } from "react-icons/im";
 import { FaRegHeart } from "react-icons/fa";
 
-import "./Single.css";
+import "./PostDetails.css";
 import useUser from "../../hooks/useUser";
 import Loader from "../../components/Loader/Loader";
 import Likes from "../../components/Likes/Likes";
 import Bookmarks from "../../components/Bookmarks/Bookmarks";
+import { FiArrowUpRight } from "react-icons/fi";
 
-const SinglePost = () => {
+const PostDetails = () => {
     const { id } = useParams();
 
     const [isLoading, post] = usePost(id);
@@ -173,9 +174,14 @@ const SinglePost = () => {
                             />
                             <div>
                                 <h4 className="text-2xl text-[#212529] mb-5">
-                                    {name}
+                                    <Link
+                                        to={`/author/${authorId}`}
+                                        className="duration-300 hover:text-primary"
+                                    >
+                                        {name}
+                                    </Link>
                                 </h4>
-                                <p className="text-[#505050] leanding-10 text-base">
+                                <p className="text-[#505050] leanding-10 text-base mb-4">
                                     {undefined !== bio
                                         ? bio.slice(0, 160)
                                             ? `${bio.slice(0, 160)}...`
@@ -185,6 +191,13 @@ const SinglePost = () => {
                                     {!bio &&
                                         `${name} is a writer based in New York City. He's interested in all things tech, science, and photography related, and likes to read book and more.`}
                                 </p>
+                                <Link
+                                    to={`/author/${authorId}`}
+                                    className="flex items-center font-medium underline text-black duration-300 hover:text-primary"
+                                >
+                                    See all post by this user{" "}
+                                    <FiArrowUpRight className="text-[18px] ml-1 mt-0.5" />
+                                </Link>
                             </div>
                         </div>
                     </>
@@ -194,4 +207,4 @@ const SinglePost = () => {
     );
 };
 
-export default SinglePost;
+export default PostDetails;
