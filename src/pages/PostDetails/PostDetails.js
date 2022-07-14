@@ -68,12 +68,17 @@ const PostDetails = () => {
                                     {post?.readingTime} min read
                                 </li>
                                 <li className="flex pr-10 relative before:absolute before:content-[''] before:w-[12px] before:h-[2px] before:bg-[#505050] before:right-[13px] before:top-[11px]">
-                                    <img
-                                        src={Category}
-                                        alt="category"
-                                        className="w-[20px] mr-2"
-                                    />
-                                    {post.category}
+                                    <Link
+                                        to={`/categories/${post.category}`}
+                                        className="flex duration-300 capitalize hover:text-primary"
+                                    >
+                                        <img
+                                            src={Category}
+                                            alt="category"
+                                            className="w-[20px] mr-2"
+                                        />
+                                        {post.category}
+                                    </Link>
                                 </li>
                                 <li className="flex items-center">
                                     <FaRegHeart className="text-[18px]" />

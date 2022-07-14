@@ -106,42 +106,42 @@ const AddPost = () => {
             return;
         }
 
-        e.target.reset();
+        //e.target.reset();
 
-        // await addDoc(collection(db, "posts"), {
-        //     title: formData.title,
-        //     description: details,
-        //     category: formData.category,
-        //     tags: tags,
-        //     authorId: user.userId,
-        //     likes: [],
-        //     readingTime: readTime,
-        //     createdAt: formData.createdAt,
-        // }).then(async (result) => {
-        //     await Promise.all(
-        //         selectedImage.map((image) => {
-        //             const imageRef = ref(
-        //                 storage,
-        //                 `posts/${result.id}/${image.path}`
-        //             );
-        //             uploadBytes(imageRef, image, "data_url").then(async () => {
-        //                 const downloadUrl = await getDownloadURL(imageRef);
-        //                 await updateDoc(doc(db, "posts", result.id), {
-        //                     imageUrl: downloadUrl,
-        //                 })
-        //                     .then((res) => {
-        //                         //console.log("successfull");
-        //                     })
-        //                     .catch((err) => console.log(err));
-        //             });
-        //         })
-        //     );
-        //     setFormData({ title: "", category: "" });
-        //     setTags("");
-        //     setDetails("");
-        //     setSelectedImage([]);
-        //     toast.success("Post added successfully...");
-        // });
+        await addDoc(collection(db, "posts"), {
+            title: formData.title,
+            description: details,
+            category: formData.category,
+            tags: tags,
+            authorId: user.userId,
+            likes: [],
+            readingTime: readTime,
+            createdAt: formData.createdAt,
+        }).then(async (result) => {
+            await Promise.all(
+                selectedImage.map((image) => {
+                    const imageRef = ref(
+                        storage,
+                        `posts/${result.id}/${image.path}`
+                    );
+                    uploadBytes(imageRef, image, "data_url").then(async () => {
+                        const downloadUrl = await getDownloadURL(imageRef);
+                        await updateDoc(doc(db, "posts", result.id), {
+                            imageUrl: downloadUrl,
+                        })
+                            .then((res) => {
+                                //console.log("successfull");
+                            })
+                            .catch((err) => console.log(err));
+                    });
+                })
+            );
+            setFormData({ title: "", category: "" });
+            setTags("");
+            setDetails("");
+            setSelectedImage([]);
+            toast.success("Post added successfully...");
+        });
     };
 
     return (
