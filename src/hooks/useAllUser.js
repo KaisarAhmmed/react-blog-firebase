@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+    collection,
+    onSnapshot,
+    orderBy,
+    query,
+    where,
+} from "firebase/firestore";
 import { db } from "../firebase.config";
 
 const useAllUser = () => {
@@ -9,7 +15,7 @@ const useAllUser = () => {
     useEffect(() => {
         setIsLoading(true);
         const usersRef = collection(db, "users");
-        const q = query(usersRef);
+        const q = query(usersRef, where("userStatus", "==", "active"));
         onSnapshot(q, (snapshot) => {
             const usersData = snapshot.docs.map((doc) => ({
                 id: doc.id,

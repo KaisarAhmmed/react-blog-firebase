@@ -7,7 +7,7 @@ const RequiredAdmin = ({ children }) => {
     const location = useLocation();
 
     if (user.role !== "admin" || !user) {
-        logOut();
+        //logOut();
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 

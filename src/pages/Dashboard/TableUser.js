@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase.config";
 import UserPlaceholder from "../../images/user-placeholder.png";
 
-const TableUser = ({ user, index }) => {
-    const { name, email, role, photo, userId, bookmarks } = user;
+const TableUser = ({ user, index, handleBanUser }) => {
+    const { id, name, email, role, photo, userId, bookmarks } = user;
     const [userPost, setUserPost] = useState(0);
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const TableUser = ({ user, index }) => {
             <td>
                 <label
                     htmlFor={`user-details-${index}`}
-                    className="cursor-pointer hover:underline duration-200"
+                    className="py-1.5 px-3 duration-300 cursor-pointer border border-[#1F2937] rounded hover:bg-[#1F2937] hover:text-white"
                 >
                     Details
                 </label>
@@ -83,7 +83,19 @@ const TableUser = ({ user, index }) => {
                     </div>
                 </div>
             </td>
-            <td>:</td>
+            <td>
+                <button
+                    onClick={() => handleBanUser(id)}
+                    className="py-1 px-3 duration-300 border border-[#1F2937] rounded hover:bg-[#1F2937] hover:text-white"
+                >
+                    Ban
+                </button>
+            </td>
+            <td>
+                <button className="py-1 px-3 duration-300 border border-[#1F2937] rounded hover:bg-[#1F2937] hover:text-white">
+                    Delete
+                </button>
+            </td>
         </tr>
     );
 };
