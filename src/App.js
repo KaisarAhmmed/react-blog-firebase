@@ -26,6 +26,9 @@ import PostDetails from "./pages/PostDetails/PostDetails";
 import Categories from "./pages/Categories/Categories";
 import SingleCategory from "./pages/Categories/SingleCategory";
 import RequiredAdmin from "./pages/Login/RequiredAdmin";
+import AllPosts from "./pages/Dashboard/AllPosts";
+import PendingPosts from "./pages/Dashboard/PendingPosts";
+import BanUsers from "./pages/Dashboard/BanUsers";
 
 function App() {
     return (
@@ -95,6 +98,30 @@ function App() {
                             element={
                                 <RequiredAdmin>
                                     <Users />
+                                </RequiredAdmin>
+                            }
+                        ></Route>
+                        <Route
+                            path="/dashboard/all-posts"
+                            element={
+                                <RequiredAdmin>
+                                    <AllPosts />
+                                </RequiredAdmin>
+                            }
+                        ></Route>
+                        <Route
+                            path="/dashboard/pending-posts"
+                            element={
+                                <RequiredAdmin>
+                                    <PendingPosts />
+                                </RequiredAdmin>
+                            }
+                        ></Route>
+                        <Route
+                            path="/dashboard/ban-users"
+                            element={
+                                <RequiredAdmin>
+                                    <BanUsers />
                                 </RequiredAdmin>
                             }
                         ></Route>

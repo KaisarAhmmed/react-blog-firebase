@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import Layout from "../../components/Layout/Layout";
 import { useUserAuth } from "../../context/userAuthContext";
 
 const Dashboard = () => {
@@ -46,14 +45,40 @@ const Dashboard = () => {
                             </Link>
                         </li>
                         {user.role === "admin" && (
-                            <li>
-                                <Link
-                                    to="/dashboard/users"
-                                    className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
-                                >
-                                    All User
-                                </Link>
-                            </li>
+                            <>
+                                <li>
+                                    <Link
+                                        to="/dashboard/users"
+                                        className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
+                                    >
+                                        All Users
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/dashboard/all-posts"
+                                        className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
+                                    >
+                                        All Posts
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/dashboard/pending-posts"
+                                        className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
+                                    >
+                                        Pending Posts
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/dashboard/ban-users"
+                                        className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
+                                    >
+                                        Ban Users
+                                    </Link>
+                                </li>
+                            </>
                         )}
                     </ul>
                 </div>
