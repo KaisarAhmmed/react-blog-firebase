@@ -45,14 +45,16 @@ const Dashboard = () => {
                                 Add New Post
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                to="/dashboard/users"
-                                className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
-                            >
-                                All User
-                            </Link>
-                        </li>
+                        {user.role === "admin" && (
+                            <li>
+                                <Link
+                                    to="/dashboard/users"
+                                    className="text-base py-2 px-4 block duration-200 rounded hover:bg-[#FEEAE3]"
+                                >
+                                    All User
+                                </Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
                 <div className="w-9/12">

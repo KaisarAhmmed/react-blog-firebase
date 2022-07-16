@@ -25,6 +25,7 @@ import AuthorDetails from "./pages/Author/AuthorDetails";
 import PostDetails from "./pages/PostDetails/PostDetails";
 import Categories from "./pages/Categories/Categories";
 import SingleCategory from "./pages/Categories/SingleCategory";
+import RequiredAdmin from "./pages/Login/RequiredAdmin";
 
 function App() {
     return (
@@ -92,9 +93,9 @@ function App() {
                         <Route
                             path="/dashboard/users"
                             element={
-                                <RequireAuth>
+                                <RequiredAdmin>
                                     <Users />
-                                </RequireAuth>
+                                </RequiredAdmin>
                             }
                         ></Route>
                     </Route>

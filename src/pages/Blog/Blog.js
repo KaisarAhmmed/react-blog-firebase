@@ -41,7 +41,7 @@ const Blog = () => {
             const getPostCount = await getDocs(postCount);
 
             const postId = getPostCount.docs.filter(
-                (item, index) => index % postsPerPage == 0
+                (item, index) => index % postsPerPage === 0
             );
 
             setPostIds(postId);
