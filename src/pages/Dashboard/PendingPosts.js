@@ -57,6 +57,7 @@ const PendingPosts = () => {
                         {pendingPosts &&
                             pendingPosts.map((post, index) => (
                                 <TablePending
+                                    key={post.id}
                                     index={index}
                                     post={post}
                                     handlePublishPost={handlePublishPost}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/userAuthContext";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import UserPlaceholderImage from "../../images/user-placeholder.png";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
     const { user, logOut } = useUserAuth();
@@ -65,7 +66,7 @@ const Header = () => {
                     </li>
                     {user ? (
                         <li className="">
-                            <div className="relative ml-5 duration-200 rounded flex group h-[44px] items-center cursor-pointer">
+                            <div className="relative ml-5 mr-3 duration-200 rounded flex group h-[44px] items-center cursor-pointer">
                                 <div className="mr-4">
                                     <p className="text-[15px]">{user.name}</p>
                                     <p className="text-[13px] capitalize ">
@@ -116,6 +117,7 @@ const Header = () => {
                     )}
                 </ul>
             </div>
+            <SearchBox />
         </div>
     );
 };
