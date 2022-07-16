@@ -13,6 +13,10 @@ const SinglePost = ({ doc }) => {
         navigate(`/blog/${id}`);
     };
 
+    const navigateToAuthor = (id) => {
+        navigate(`/author/${id}`);
+    };
+
     const { userId, name, photo } = author;
 
     return (
@@ -63,8 +67,8 @@ const SinglePost = ({ doc }) => {
                 </p>
                 <ul className="flex items-center">
                     <li className="relative text-sm lg:text-base font-medium text-[#505050] pr-10 before:absolute before:content-[''] before:h-[5px] before:w-[5px] before:bg-[#505050] before:rounded-full before:right-[18px] before:top-[10px]">
-                        <Link
-                            to={`author/${userId}`}
+                        <button
+                            onClick={() => navigateToAuthor(userId)}
                             className="flex items-center"
                         >
                             <img
@@ -73,7 +77,7 @@ const SinglePost = ({ doc }) => {
                                 className="h-7 w-7 rounded object-cover mr-2"
                             />
                             by {name}
-                        </Link>
+                        </button>
                     </li>
                     <li>
                         <ul className="flex">

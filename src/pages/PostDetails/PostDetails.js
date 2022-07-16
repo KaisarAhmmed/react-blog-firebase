@@ -198,10 +198,10 @@ const PostDetails = () => {
                                 </p>
                                 <Link
                                     to={`/author/${authorId}`}
-                                    className="flex items-center font-medium underline text-black duration-300 hover:text-primary"
+                                    className="font-medium underline text-black duration-300 hover:text-primary"
                                 >
-                                    See all post by this user{" "}
-                                    <FiArrowUpRight className="text-[18px] ml-1 mt-0.5" />
+                                    See all post by this user
+                                    <FiArrowUpRight className="text-[18px] ml-0.5 mt-0.5 inline-block" />
                                 </Link>
                             </div>
                         </div>

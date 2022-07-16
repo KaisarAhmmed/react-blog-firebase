@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import Loader from "../../components/Loader/Loader";
@@ -13,6 +13,13 @@ const AuthorDetails = () => {
     const [loading, author] = useUser(authorId);
 
     const { name, photo, bio } = author;
+
+    useEffect(() => {
+        window.scrollTo({
+            behavior: "smooth",
+            top: "100px",
+        });
+    }, [authorId]);
 
     return (
         <Layout>
